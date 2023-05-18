@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ValoGuessr</title>
     <link rel="stylesheet" href="style.css">
+    <script src="myScript.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -17,19 +18,37 @@
 
         <div class="horizontal center">
             <div class="gameLeft">
-                
+
                 <h2>Round 1/10</h2>
-                <br><br>
+
                 <h2>Points: 0</h2>
-                <br><br>
+
                 <h3>Guess as close as possible!</h3>
+                
+                <button class="buttonSelected">
+                    <h3>Submit</h3>
+                </button>
+                <button class="">
+                    <h3>Contine</h3>
+                </button>
             </div>
             <div class="gameRight center">
                 <div class="gameContainer">
                     <img src="img/CoverImage1.png" id="AnswerImg" alt="">
                     <img src="img/CoverImage2.png" id="levelImg" alt="">
-                    <img src="img/CoverImage3.png" id="mapImg" alt="">
+                    <img src="TestImg.png" id="mapImg" alt="">
                 </div>
+            </div>
+            <div class="mapSelect">
+                <button id="mapbut0" onclick="SelectMap(0)">Bind</button>
+                <button id="mapbut1" onclick="SelectMap(1)">Breeze</button>
+                <button id="mapbut2" onclick="SelectMap(2)">Haven</button>
+                <button id="mapbut3" onclick="SelectMap(3)">IceBox</button>
+                <button id="mapbut4" onclick="SelectMap(4)">Split</button>
+                <button id="mapbut5" onclick="SelectMap(5)">Pearl</button>
+                <button id="mapbut6" onclick="SelectMap(6)">Fracture</button>
+                <button id="mapbut7" onclick="SelectMap(7)">Ascent</button>
+                <button id="mapbut8" onclick="SelectMap(8)">Lotus</button>
             </div>
         </div>
     </div>

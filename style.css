@@ -81,6 +81,7 @@ body{
     text-align: center;
     justify-content: center;
     align-items: center;
+    gap: 2vw;
 }
 h1{
     font-family: "Leela", sans-serif;
@@ -129,16 +130,24 @@ p{
     transition-duration: 200ms;
 }
 .homeLeft button:hover{
-    border-color: none;
+    border-color: var(--thirdColor);
     background-color: var(--mainColor);
     transition-duration: 100ms;
     cursor: pointer;
     box-shadow:0px 0px 50px 0px var(--mainColor);
     z-index: 10;
 }
+.homeLeft button:active{
+    background-color: var(--secondColor);
+    border-color: var(--thirdColor);
+}
 .homeLeft button:hover h2{
     color: var(--thirdColor);
     text-shadow: 4px 4px 0px var(--secondColor);
+}
+.homeLeft button:active h2{
+    color: var(--thirdColor);
+    text-shadow: 4px 4px 0px var(--mainColor);
 }
 
 .horizontal{
@@ -183,6 +192,7 @@ p{
 .gameLeft{
     width: 35vw;
     height: 90vh;
+    gap: 2vw;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -204,11 +214,12 @@ p{
 }
 
 .gameContainer{
+    z-index: 10;
     width: 60vw;
     height: 33.75vw;
     transition-duration: 100ms;
     position: relative;
-    box-shadow: 0px 0px 150px -50px var(--mainColor),0px 0px 50px -10px var(--mainColor);
+    box-shadow: 0px 0px 50px -50px var(--mainColor),0px 0px 50px -10px var(--secondColor);
 }
 
 .gameRight:hover .gameContainer:hover{
@@ -226,7 +237,7 @@ p{
 .timer{
     position: absolute;
     height: 2vh;
-    width: 0vw;
+    width: 50vw;
     background-color: var(--mainColor);
     bottom: 0vh;
 }
@@ -234,3 +245,102 @@ p{
 .gap{
     height: var(--gap);
 }
+
+.gameLeft button{
+    border-color: var(--secondColor);
+    border-radius: 15px;
+    background-color: transparent;
+    transition-duration: 200ms;
+
+    width: 15vw;
+    height: 5vw;
+}
+.gameLeft .buttonSelected{
+    border-radius: 15px;
+    cursor: pointer;
+    border-color: var(--thirdColor);
+    box-shadow: 0px 0px 20px 0px var(--mainColor);
+    background-color: var(--mainColor);
+    transition-duration: 150ms;
+}
+.gameLeft .buttonSelected:hover{
+    background-color: var(--thirdColor);
+    border-color: var(--mainColor);
+}
+
+.gameLeft .buttonSelected:active{
+    background-color: var(--secondColor);
+    border-color: var(--thirdColor);
+}
+
+.gameLeft button h3{
+    color: var(--secondColor);
+}
+
+.gameLeft .buttonSelected h3{
+    color: var(--thirdColor);
+    text-shadow: 4px 4px 0px var(--secondColor);
+}
+.gameLeft .buttonSelected:hover h3{
+    color: var(--mainColor);
+}
+.gameLeft .buttonSelected:active h3{
+    color: var(--thirdColor);
+}
+
+.mapSelect{
+    position: absolute;
+    margin-top:-39vw;
+    margin-left:35vw;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75vw;
+}
+.mapSelect button{
+    width: 6vw;
+    height: 4.5vh;
+}
+
+.mapSelect button{
+    background-color: var(--mainColor);
+    color: var(--thirdColor);
+    font-size: 1vw;
+    text-shadow: 2px 2px 0px var(--secondColor);
+    border-radius: 5%;
+    box-shadow: 0px 0px 10px 0px var(--mainColor);
+    border: var(--thirdColor) 0.12vw solid;
+    font-family: "Leela", sans-serif;
+    font-weight: bold;
+    transition-duration: 100ms;
+}
+.mapSelect button:hover{
+    cursor: pointer;
+    background-color: var(--thirdColor);
+    color: var(--mainColor);
+    transition-duration: 100ms;
+}
+
+.selectedMap{
+    border: black solid !important;
+}
+
+
+
+
+/* .homeLeft button{
+    border-color: var(--mainColor);
+    border-radius: 15px;
+    height: 10vh;
+    min-width: 22vw;
+    margin: 2vw;
+    background-color: transparent;
+    transition-duration: 200ms;
+}
+.homeLeft button:hover{
+    border-color: none;
+    background-color: var(--mainColor);
+    transition-duration: 100ms;
+    cursor: pointer;
+    box-shadow:0px 0px 50px 0px var(--mainColor);
+    z-index: 10;
+} */
