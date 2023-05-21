@@ -3,3 +3,36 @@ filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cf
 
 Inverted-
 filter: invert;
+
+// Bind
+// Breeze
+// Haven
+// IceBox
+// Split
+// Pearl
+// Fracture
+// Ascent
+// lotus
+
+
+
+
+
+
+
+All modifiers
+
+Timer
+ No Limit 
+ 5 seconds
+10 seconds
+20 seconds
+30 seconds
+60 seconds
+
+
+Guess map
+Out of bounds
+Inverted
+Blurry
+50% screen

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ValoGuessr</title>
+    <script src="myScript.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mainContainer" style="gap:0.5vw;">
+        <div class="header center">
+            <a href="index.html">
+                <img src="img/ValoGuessrLogo.png" href="index.html">
+            </a>
+        </div>
+        
+        <h3 style="margin:0.75vw;">Maps</h3>
+        <div class="horizontal" style="gap:1vw">
+            <button id="map0" class="startGameSmallButton" onclick="chooseMap(0);"><h4>Bind</h4></button>
+            <button id="map1" class="startGameSmallButton" onclick="chooseMap(1);"><h4>Breeze</h4></button>
+            <button id="map2" class="startGameSmallButton" onclick="chooseMap(2);"><h4>Haven</h4></button>
+            <button id="map3" class="startGameSmallButton" onclick="chooseMap(3);"><h4>IceBox</h4></button>
+            <button id="map4" class="startGameSmallButton" onclick="chooseMap(4);"><h4>Split</h4></button>
+            <button id="map5" class="startGameSmallButton" onclick="chooseMap(5);"><h4>Pearl</h4></button>
+            <button id="map6" class="startGameSmallButton" onclick="chooseMap(6);"><h4>Fracture</h4></button>
+            <button id="map7" class="startGameSmallButton" onclick="chooseMap(7);"><h4>Ascent</h4></button>
+            <button id="map8" class="startGameSmallButton" onclick="chooseMap(8);"><h4>Lotus</h4></button>
+            <button id="map8" class="startGameSmallButton" onclick="chooseMap(9);"><h4>Toggle all</h4></button>
+        </div>
+
+        <h3 style="margin-top:1vw;">Round amount</h3>
+        <div class="horizontal" style="margin-left: 5vw;">
+            <input type="range" min="1" max="25" value="5" class="slider" id="roundAmmountSlider">
+            <h3 id="roundAmmountSliderText"></h3>
+        </div>
+
+        <h3>Time Limit</h3>
+        <div class="horizontal" style="margin-left: 10vw;">
+            <input type="range" min="0" max="60" value="0" class="slider" id="timeLimitSlider">
+            <h3 id="timeLimitSliderText"></h3>
+        </div>
+
+        <h3>Difficulty</h3>
+        <button id="difficultyButton">
+            <h4 id="difficultyText"></h4>
+        </button>
+
+        <h3>Game Modifiers</h3>
+        <div class="horizontal" style="gap:1vw">
+            <button id="modifier-guessMap" class="startGameSmallButton" onclick="chooseModifier('guessMap');"><h4>Guess Map</h4></button>
+            <button id="modifier-outOfBounds" class="startGameSmallButton" onclick="chooseModifier('outOfBounds');"><h4>Out Of Bounds</h4></button>
+            <button id="modifier-inverted" class="startGameSmallButton" onclick="chooseModifier('inverted');"><h4>Inverted</h4></button>
+            <button id="modifier-blurry" class="startGameSmallButton" onclick="chooseModifier('blurry');"><h4>Blurry</h4></button>
+            <button id="modifier-pixelated" class="startGameSmallButton" onclick="chooseModifier('pixelated');"><h4>Pixelated</h4></button>
+            <button id="modifier-screen50" class="startGameSmallButton" onclick="chooseModifier('screen50');"><h4>50% Screen</h4></button>
+            <button id="modifier-blackWhite" class="startGameSmallButton" onclick="chooseModifier('blackWhite');"><h4>Black/White</h4></button>
+        </div>
+        <button onclick="debug()">debug</button>
+    </div>
+</body>
+</html>
