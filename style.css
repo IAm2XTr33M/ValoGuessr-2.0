@@ -12,16 +12,18 @@
 }
 
 :root{
-    --thirdColor:#e7e7e7;
-    --secondColor:black;
-    --mainColor:red;
-    --mainColorTransparent:rgba(255, 0, 0, 0.131);
+    --thirdColor:rgb(255, 255, 255); /* background */
+    --secondColor:rgb(0, 0, 0); /* Shadows */
+    --mainColor:red; /* Main Color */
+    --mainColorTransparent:rgba(255, 0, 0, 0.131); /* Main Color TransParent */
+    --hueShift:0deg; /* Images */
+    --brightness:100%; /* Images */
 }
 
 
 body{
     background-color: var(--thirdColor);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .center{
@@ -34,15 +36,15 @@ body{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;    
 }
 
 .header{
-    background-color: var(--secondColor);
+    background-color: black;
     width: 100vw;
     height: 10vh;
     z-index: 10;
-    box-shadow: 0px 0px 30px 0px var(--secondColor);
+    box-shadow: 0px 0px 30px 0px black;
 }
 .header a{
     height: 65%;
@@ -54,6 +56,7 @@ body{
 }
 .header a img{
     height: 100%;
+    filter: hue-rotate(var(--hueShift)) brightness(var(--brightness));
 }
 
 .homeContainer{
@@ -181,6 +184,7 @@ p{
     transition-duration: 200ms;
     cursor: pointer;
     box-shadow: 0px 0px 20px 1px var(--mainColor);
+    filter: hue-rotate(var(--hueShift)) brightness(var(--brightness));
 }
 
 .socials img:hover{
@@ -241,6 +245,19 @@ p{
     background-color: var(--mainColor);
     bottom: 0vh;
 }
+
+.infoButton{
+    margin-left: 0.5vw;
+    border-color: transparent;
+    border-radius: 1000px;
+    background-color: transparent;
+    cursor: pointer;
+}
+.infoButton h3{
+    font-size: 1.5vw;
+    line-height: 2.65vw;
+}
+
 
 .gap{
     height: var(--gap);
@@ -359,11 +376,14 @@ p{
     background: var(--mainColor);
     cursor: pointer;
   }
+#difficultyText{
+    margin: 0.5vw;
+}
 
 #difficultyButton{
     border-color: var(--mainColor);
     border-radius: 15px;
-    height: 7vh;
+    height: 4vw;
     margin: 1vw;
     min-width: 15vw;
     background-color: transparent;
@@ -389,7 +409,7 @@ p{
 .startGameSmallButton{
     border-color: var(--mainColor);
     border-radius: 15px;
-    height: 6vh;
+    height: 3vw;
     min-width: 7.5vw;
     background-color: transparent;
     transition-duration: 200ms;
@@ -432,21 +452,36 @@ p{
     width: 15vw;
 }
 
-
-/* .homeLeft button{
-    border-color: var(--mainColor);
-    border-radius: 15px;
-    height: 10vh;
-    min-width: 22vw;
+#startButton{
     margin: 2vw;
-    background-color: transparent;
+    border-color: var(--thirdColor);
+    border-radius: 15px;
+    height: 12vw;
+    min-width: 20vw;
+    background-color: var(--thirdColor);
+    box-shadow:0px 0px 10px 0px var(--mainColor);
     transition-duration: 200ms;
 }
-.homeLeft button:hover{
-    border-color: none;
+
+#startButton:hover{
     background-color: var(--mainColor);
-    transition-duration: 100ms;
-    cursor: pointer;
     box-shadow:0px 0px 50px 0px var(--mainColor);
-    z-index: 10;
-} */
+    cursor: pointer;
+}
+
+#startButton:hover h2{
+    color: var(--thirdColor);
+    text-shadow: 4px 4px 0px var(--secondColor);
+}
+
+#mapImg{
+    opacity: 0%;
+    transition-duration: 100ms;
+}
+.gameContainer:hover #mapImg{
+    opacity: 100%;
+    transition-duration: 100ms;
+}
+#AnswerImg{
+    opacity: 0%;
+}
