@@ -1,3 +1,5 @@
+var devMode = false;
+
 
 window.onload = function() {
     if ( document.URL.includes("StartGame.html") ) {
@@ -164,6 +166,8 @@ function chooseModifier(key){
     }
 }
 
+var CurrentSelectedMap = null;
+
 function SelectMap(map){
     //Loop trough all 9 of the map buttons and turn them off
     for(var i = 0; i < 9;i++){
@@ -172,7 +176,21 @@ function SelectMap(map){
             button.classList.remove("selectedMap");
         }
     }
+    
+    switch(map){
+        case 0 : CurrentSelectedMap = "Bind"; break;
+        case 1 : CurrentSelectedMap = "Breeze"; break;
+        case 2 : CurrentSelectedMap = "Haven"; break;
+        case 3 : CurrentSelectedMap = "IceBox"; break;
+        case 4 : CurrentSelectedMap = "Split"; break;
+        case 5 : CurrentSelectedMap = "Pearl"; break;
+        case 6 : CurrentSelectedMap = "Fracture"; break;
+        case 7 : CurrentSelectedMap = "Ascent"; break;
+        case 8 : CurrentSelectedMap = "Lotus"; break;
+    }
+
     document.getElementById("mapbut"+map.toString()).classList.add("selectedMap");
+    document.getElementById("mapImg").src = "game/maps/"+CurrentSelectedMap+"/map.png";
 }
 
 function StartGameButton(){
@@ -191,6 +209,10 @@ function StartGame(){
     }
     else{
         alert("Something went wrong, please try again or try a different browser. Sorry.")
+    }
+
+    if(sessionSettings.modifiers.guessMap){
+        document.getElementById("mapSelect").style.display = "flex";
     }
     
     GetAllMapLevels();
@@ -266,6 +288,7 @@ function GetUsableLevels(){
 }
 
 var finalRounds = [];
+var CR = 0;
 
 function GetFinalRounds(usableLevels){
     addLevel();
@@ -280,11 +303,161 @@ function GetFinalRounds(usableLevels){
         }
     }
 
+    if(sessionSettings.modifiers.guessMap){
+        var MapDir = "game/maps/NoMap/map.png";
+    }
+    else{
+        var MapDir = "game/maps/"+RoundMap+"/map.png";
+    }
+
+    document.getElementById('mapImg').src= MapDir; 
+
     startRound();
 }
 
-function startRound(){
-    console.log(finalRounds);
+var hasGuessed = false;
+var hasSubmitted = false;
+var hasConfirmed = false;
+
+var currentGuess = [0,0];
+var currentPoints = 0;
+
+var imgWidth;
+var imgHeight;
+
+async function startRound(){
+    ResetGame();
+
+    var RoundMap = finalRounds[CR][4];
+    var RoundImg = finalRounds[CR][0];
+
+    var text = "Round " + (CR+1).toString() + "/" + finalRounds.length;
+    document.getElementById("currentRoundText").innerHTML = text;
+
+    var Imgdir = "game/maps/"+RoundMap+"/" + RoundImg + ".png";
+    var Ansdir = "game/maps/"+RoundMap+"/locations/" + RoundImg + ".png";
+
+    document.getElementById('AnswerImg').src= Ansdir; 
+    document.getElementById('levelImg').src= Imgdir; 
+
+    await document.getElementById("levelImg").complete;
+    document.getElementById("overlay").classList.add("overlayOff");
+}
+
+var imgWidth;
+var imgHeight;
+
+function clickHotspotImage(event) {
+    if(!hasSubmitted){
+        var xCoordinate = event.offsetX;
+        var yCoordinate = event.offsetY;
+    
+        imgWidth = document.getElementById("levelImg").clientWidth;;
+        imgHeight = document.getElementById("levelImg").clientHeight;
+    
+        currentGuess = [xCoordinate/imgWidth*100,yCoordinate/imgHeight*100]
+    
+        var selectImgEl = document.getElementById("selectImg").style;
+        selectImgEl.left = "calc(" + currentGuess[0].toString()+"% - 4px)";
+        selectImgEl.top = "calc(" + currentGuess[1].toString()+"% - 4px)";
+        selectImgEl.opacity = "100";
+    
+        document.getElementById("submitButton").classList.add("buttonSelected");
+    
+        hasGuessed = true;
+    }
+}
+
+function SubmitGuess(){
+    if(hasGuessed){
+        hasSubmitted = true;
+        hasGuessed = false;
+        document.getElementById("submitButton").classList.remove("buttonSelected");
+        document.getElementById("continueButton").classList.add("buttonSelected");
+        
+        document.getElementById("mapImg").style.display = "none";
+        document.getElementById("levelImg").style.opacity = "0%";
+        document.getElementById("AnswerImg").style.opacity = "100%";
+
+        var pointsGained = 0;
+        
+        var levelAns = [finalRounds[CR][3][0],finalRounds[CR][3][1]];
+        var difference = Math.abs(currentGuess[0]-levelAns[0])+Math.abs(currentGuess[1]-levelAns[1]);
+
+        if(sessionSettings.modifiers.guessMap){
+            if(CurrentSelectedMap.toUpperCase() == finalRounds[CR][4].toUpperCase()){
+                console.log("test");
+                if(difference<2){
+                    pointsGained = 5000;
+                }
+                else{
+                    pointsGained = 5000+400-(200*difference);
+                }
+                if(pointsGained < 0){
+                    pointsGained = 0;
+                }
+                hasSubmitted = true;
+                document.getElementById("gameText").innerHTML = "You gained "+ Math.round(pointsGained).toString() +" out of 5000 points!" ;
+            }
+            else{
+                hasSubmitted = true;
+                document.getElementById("gameText").innerHTML = "You guessed the wrong map, it was "+ finalRounds[CR][4]; 
+            }
+        }
+        else{
+            if(difference<2){
+                pointsGained = 5000;
+            }
+            else{
+                pointsGained = 5000+400-(200*difference);
+            }
+            if(pointsGained < 0){
+                pointsGained = 0;
+            }
+            hasSubmitted = true;
+            document.getElementById("gameText").innerHTML = "You gained "+ Math.round(pointsGained).toString() +" out of 5000 points!" ;
+        }
+        currentPoints += Math.round(pointsGained);
+
+        document.getElementById("pointsText").innerHTML = "Points: "+getNumberWithCommas(currentPoints);
+    }
+}
+
+function Continue(){
+    if(hasSubmitted){
+        if(CR < sessionSettings.currentRoundAmmount){
+            CR++
+            startRound();
+        }
+        else{
+            //End the game
+        }
+    }
+}
+
+async function ResetGame(){
+    hasGuessed = false;
+    hasSubmitted = false;
+
+    document.getElementById("submitButton").classList.remove("buttonSelected");
+    document.getElementById("continueButton").classList.remove("buttonSelected");
+    
+    document.getElementById("mapImg").style.display = "flex";
+    document.getElementById("levelImg").style.opacity = "100%";
+    document.getElementById("AnswerImg").style.opacity = "0%";
+
+    document.getElementById("gameText").innerHTML = "Guess as close as possible!";
+
+    var selectImgEl = document.getElementById("selectImg").style;
+    selectImgEl.opacity = "0%";
+}
+
+function getNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
 }
 
 function debug(){

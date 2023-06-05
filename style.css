@@ -12,14 +12,22 @@
 }
 
 :root{
-    --thirdColor:rgb(255, 255, 255); /* background */
-    --secondColor:rgb(0, 0, 0); /* Shadows */
-    --mainColor:red; /* Main Color */
-    --mainColorTransparent:rgba(255, 0, 0, 0.131); /* Main Color TransParent */
+    --thirdColor:rgb(1, 2, 10); /* background */
+    --secondColor:rgb(255, 255, 255); /* Shadows */
+    --mainColor:rgb(255, 0, 0); /* Main Color */
+    --mainColorTransparent:rgba(255, 0, 0, 0.2); /* Main Color TransParent */
     --hueShift:0deg; /* Images */
     --brightness:100%; /* Images */
 }
 
+/* 
+--thirdColor:rgb(255, 255, 255); 
+--secondColor:rgb(0, 0, 0);
+--mainColor:red;
+--mainColorTransparent:rgba(255, 0, 0, 0.131); 
+--hueShift:0deg;
+--brightness:100%;
+ */
 
 body{
     background-color: var(--thirdColor);
@@ -233,6 +241,7 @@ p{
 }
 
 .gameContainer img{
+    filter: saturate(150%);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -320,9 +329,8 @@ p{
 
 .mapSelect button{
     background-color: var(--mainColor);
-    color: var(--thirdColor);
+    color: var(--secondColor);
     font-size: 1vw;
-    text-shadow: 2px 2px 0px var(--secondColor);
     border-radius: 5%;
     box-shadow: 0px 0px 10px 0px var(--mainColor);
     border: var(--thirdColor) 0.12vw solid;
@@ -338,7 +346,7 @@ p{
 }
 
 .selectedMap{
-    border: black solid !important;
+    border: var(--secondColor) solid !important;
 }
 
 .slider {
@@ -480,8 +488,35 @@ p{
 }
 .gameContainer:hover #mapImg{
     opacity: 100%;
-    transition-duration: 100ms;
+    transition: ease-out 100ms;
 }
 #AnswerImg{
     opacity: 0%;
+}
+
+#overlay{
+    opacity: 100%;
+    position: fixed;
+    margin-top: -100vh;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--secondColor);
+    pointer-events: none;
+}
+
+.overlayOff{
+    transition: ease-out 1000ms;
+    opacity: 0% !important;
+}
+
+.selectedImage{
+    opacity: 0%;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0px black;
+}
+.gameContainer:hover .selectedImage{
+    opacity: 100%;
 }
