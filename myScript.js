@@ -211,9 +211,27 @@ function StartGame(){
         alert("Something went wrong, please try again or try a different browser. Sorry.")
     }
 
+    var filters = "";
+
     if(sessionSettings.modifiers.guessMap){
         document.getElementById("mapSelect").style.display = "flex";
     }
+    if(sessionSettings.modifiers.blackWhite){
+        filters += "grayscale() ";
+    }
+    if(sessionSettings.modifiers.blurry){
+        filters += "blur(0.3vw) ";
+    }
+    if(sessionSettings.modifiers.inverted){
+        filters += "invert() "
+    }
+    if(sessionSettings.modifiers.pixelated){
+        filters += 'url("' + String("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='b' x='0' y='0'%3E%3CfeFlood x='4' y='4' height='500' width='500'/%3E%3CfeComposite width='500' height='500'/%3E%3CfeTile result='a'/%3E%3CfeComposite in='SourceGraphic' in2='a' operator='in'/%3E%3CfeMorphology operator='dilate' radius='5'/%3E%3C/filter%3E%3C/svg%3E#b")+'")';
+    }
+    if(sessionSettings.modifiers.screen50){
+        document.getElementById("levelOverlayImg").style.display = "flex";
+    }
+    document.getElementById("levelImg").style.filter = filters;
     
     GetAllMapLevels();
 }
@@ -307,7 +325,7 @@ function GetFinalRounds(usableLevels){
         var MapDir = "game/maps/NoMap/map.png";
     }
     else{
-        var MapDir = "game/maps/"+RoundMap+"/map.png";
+        var MapDir = "game/maps/"+finalRounds[CR][4]+"/map.png";
     }
 
     document.getElementById('mapImg').src= MapDir; 
@@ -377,6 +395,9 @@ function SubmitGuess(){
         
         document.getElementById("mapImg").style.display = "none";
         document.getElementById("levelImg").style.opacity = "0%";
+        if(sessionSettings.modifiers.screen50){
+            document.getElementById("levelOverlayImg").style.display = "none";
+        }
         document.getElementById("AnswerImg").style.opacity = "100%";
 
         var pointsGained = 0;
@@ -386,7 +407,6 @@ function SubmitGuess(){
 
         if(sessionSettings.modifiers.guessMap){
             if(CurrentSelectedMap.toUpperCase() == finalRounds[CR][4].toUpperCase()){
-                console.log("test");
                 if(difference<2){
                     pointsGained = 5000;
                 }
@@ -444,6 +464,9 @@ async function ResetGame(){
     
     document.getElementById("mapImg").style.display = "flex";
     document.getElementById("levelImg").style.opacity = "100%";
+    if(sessionSettings.modifiers.screen50){
+        document.getElementById("levelOverlayImg").style.display = "flex";
+    }
     document.getElementById("AnswerImg").style.opacity = "0%";
 
     document.getElementById("gameText").innerHTML = "Guess as close as possible!";
