@@ -32,6 +32,7 @@
 body{
     background-color: var(--thirdColor);
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .center{
@@ -85,6 +86,8 @@ body{
 }
 
 .homeLeft{
+    padding-top: 1vw;
+    padding-left: 1vw;
     margin: 1vw;
     height: 90vh;
     display: flex;
@@ -92,7 +95,7 @@ body{
     text-align: center;
     justify-content: center;
     align-items: center;
-    gap: 2vw;
+    gap: 1vw;
 }
 h1{
     font-family: "Leela", sans-serif;
@@ -131,10 +134,18 @@ p{
     text-shadow: 4px 4px 0px var(--mainColorTransparent);
 }
 
+.homeLeft a{
+    height: 5vw;
+}
+
+.homeLeft h3{
+    line-height: 20%;
+}
+
 .homeLeft button{
     border-color: var(--mainColor);
     border-radius: 15px;
-    height: 10vh;
+    height: 5vw;
     min-width: 22vw;
     margin: 2vw;
     background-color: transparent;
@@ -166,6 +177,14 @@ p{
     flex-direction: row;
     gap: -10px;
 }
+
+
+.horizontalScore{
+    display: flex;
+    flex-direction: row;
+    gap: -10px;
+}
+
 
 .homeRight{
     background-color: var(--mainColorTransparent);
@@ -249,7 +268,6 @@ p{
 .timer{
     position: absolute;
     height: 2vh;
-    width: 0vw;
     background-color: var(--mainColor);
     bottom: 0vh;
 }
@@ -526,4 +544,57 @@ p{
 
 .pixelated{
     filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='b' x='0' y='0'%3E%3CfeFlood x='4' y='4' height='500' width='500'/%3E%3CfeComposite width='500' height='500'/%3E%3CfeTile result='a'/%3E%3CfeComposite in='SourceGraphic' in2='a' operator='in'/%3E%3CfeMorphology operator='dilate' radius='5'/%3E%3C/filter%3E%3C/svg%3E#b");
+}
+
+.horizontalScore div{
+    width: 50vw;
+    height: calc(100vh - 10vh);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#scoreImg{
+    width: 95%;
+    box-shadow: 0px 0px 100px -20px var(--mainColor);
+}
+
+.ScoreBut{
+    border-color: var(--mainColor);
+    border-radius: 15px;
+    min-width: 15vw;
+    margin: 2vw;
+    background-color: transparent;
+    transition-duration: 200ms;
+}
+.ScoreBut:hover{
+    border-color: var(--thirdColor);
+    background-color: var(--mainColor);
+    transition-duration: 100ms;
+    cursor: pointer;
+    box-shadow:0px 0px 50px 0px var(--mainColor);
+    z-index: 10;
+}
+.ScoreBut:active{
+    background-color: var(--secondColor);
+    border-color: var(--thirdColor);
+}
+.ScoreBut h2{
+    padding: 10px;
+}
+.ScoreBut:hover h2{
+    color: var(--thirdColor);
+    text-shadow: 4px 4px 0px var(--secondColor);
+}
+.ScoreBut:active h2{
+    color: var(--thirdColor);
+    text-shadow: 4px 4px 0px var(--mainColor);
+}
+
+.scoreButtons{
+    display: flex !important;
+    flex-direction: row !important;
+    height: 7.5vw !important;
 }

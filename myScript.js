@@ -8,6 +8,9 @@ window.onload = function() {
     if ( document.URL.includes("Game.html") && !document.URL.includes("StartGame.html")) {
         StartGame();
     }
+    if(document.URL.includes("Score.html")){
+        ShowScore();
+    }
 }
 
 function info(info){
@@ -360,6 +363,13 @@ async function startRound(){
 
     await document.getElementById("levelImg").complete;
     document.getElementById("overlay").classList.add("overlayOff");
+    if(sessionSettings.currentTimeLimit > 0){
+        for(var i = 0;i<sessionSettings.currentTimeLimit*50; i++){
+            document.getElementById("timer").style.width = (i/50*100).toString() + "vw";
+            await delay(200);
+            console.log("wow");
+        }
+    }
 }
 
 var imgWidth;
@@ -445,14 +455,50 @@ function SubmitGuess(){
 
 function Continue(){
     if(hasSubmitted){
+        CR++
         if(CR < sessionSettings.currentRoundAmmount){
-            CR++
+            console.log("tesst");
             startRound();
         }
         else{
+            if(typeof(sessionStorage) != 'undefined') {
+                sessionStorage.setItem("points", JSON.stringify(currentPoints));
+                sessionStorage.setItem("rounds", JSON.stringify(finalRounds));
+            }
+            window.location = "Score.html";
             //End the game
         }
     }
+}
+
+var points;
+var rounds;
+
+function ShowScore(){
+    if (sessionStorage.getItem("points")) {
+        points = JSON.parse(sessionStorage.getItem("points"));
+    }
+    document.getElementById("pointText").innerHTML = getNumberWithCommas(points) + " points!"
+    if (sessionStorage.getItem("rounds")) {
+        rounds = JSON.parse(sessionStorage.getItem("rounds"));
+    } 
+    console.log("test");
+    scoreCarousel();
+}
+
+var scoreCarouselCR = 0;
+async function scoreCarousel(){
+    var el = document.getElementById("scoreImg");
+    var path = rounds[scoreCarouselCR][4] + "/locations/"+rounds[scoreCarouselCR][0].toString()+".png";
+    el.src = "game/maps/"+ path;
+    await delay(2000);
+    if(scoreCarouselCR+1< rounds.length){
+        scoreCarouselCR++;
+    }
+    else{
+        scoreCarouselCR = 0;
+    }
+    scoreCarousel();
 }
 
 async function ResetGame(){
