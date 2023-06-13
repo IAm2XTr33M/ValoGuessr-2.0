@@ -358,16 +358,26 @@ async function startRound(){
     var Imgdir = "game/maps/"+RoundMap+"/" + RoundImg + ".png";
     var Ansdir = "game/maps/"+RoundMap+"/locations/" + RoundImg + ".png";
 
+    if(!sessionSettings.modifiers.guessMap){
+        var MapDir = "game/maps/"+RoundMap+"/map.png";
+    }
+
     document.getElementById('AnswerImg').src= Ansdir; 
     document.getElementById('levelImg').src= Imgdir; 
+    document.getElementById('mapImg').src= MapDir; 
 
     await document.getElementById("levelImg").complete;
     document.getElementById("overlay").classList.add("overlayOff");
+    console.log(sessionSettings.currentTimeLimit);
     if(sessionSettings.currentTimeLimit > 0){
-        for(var i = 0;i<sessionSettings.currentTimeLimit*50; i++){
-            document.getElementById("timer").style.width = (i/50*100).toString() + "vw";
-            await delay(200);
-            console.log("wow");
+        var fps = 60;
+        for(var i = 0; i < sessionSettings.currentTimeLimit*fps; i++){
+            var total = i / sessionSettings.currentTimeLimit *100/fps;
+            if(total > 99.8){
+                total = 100;
+            }
+            document.getElementById("timer").style.width = total.toString() + "vw";
+            await delay(1000/fps);
         }
     }
 }
