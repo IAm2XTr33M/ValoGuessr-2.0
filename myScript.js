@@ -367,8 +367,6 @@ async function startRound(){
     document.getElementById('mapImg').src= MapDir; 
 
     await document.getElementById("levelImg").complete;
-    document.getElementById("overlay").classList.add("overlayOff");
-    console.log(sessionSettings.currentTimeLimit);
     if(sessionSettings.currentTimeLimit > 0){
         var fps = 60;
         for(var i = 0; i < sessionSettings.currentTimeLimit*fps; i++){
@@ -377,7 +375,17 @@ async function startRound(){
                 total = 100;
             }
             document.getElementById("timer").style.width = total.toString() + "vw";
+            if(hasSubmitted){
+                i = sessionSettings.currentTimeLimit * fps;
+            }
             await delay(1000/fps);
+        }
+        if(currentGuess[0] == 0 && currentGuess[1] == 0){
+            TimeOver();
+        }
+        else{
+            hasGuessed = true;
+            SubmitGuess();
         }
     }
 }
@@ -394,7 +402,7 @@ function clickHotspotImage(event) {
         imgHeight = document.getElementById("levelImg").clientHeight;
     
         currentGuess = [xCoordinate/imgWidth*100,yCoordinate/imgHeight*100]
-    
+        console.log(currentGuess);
         var selectImgEl = document.getElementById("selectImg").style;
         selectImgEl.left = "calc(" + currentGuess[0].toString()+"% - 4px)";
         selectImgEl.top = "calc(" + currentGuess[1].toString()+"% - 4px)";
@@ -404,6 +412,22 @@ function clickHotspotImage(event) {
     
         hasGuessed = true;
     }
+}
+
+function TimeOver(){
+    hasSubmitted = true;
+    hasGuessed = false;
+    document.getElementById("submitButton").classList.remove("buttonSelected");
+    document.getElementById("continueButton").classList.add("buttonSelected");
+
+    document.getElementById("mapImg").style.display = "none";
+    document.getElementById("levelImg").style.opacity = "0%";
+    if(sessionSettings.modifiers.screen50){
+        document.getElementById("levelOverlayImg").style.display = "none";
+    }
+    document.getElementById("AnswerImg").style.opacity = "100%";
+
+    document.getElementById("gameText").innerHTML = "Your time ran out, be quicker next time!" ;
 }
 
 function SubmitGuess(){
@@ -467,7 +491,6 @@ function Continue(){
     if(hasSubmitted){
         CR++
         if(CR < sessionSettings.currentRoundAmmount){
-            console.log("tesst");
             startRound();
         }
         else{
@@ -492,7 +515,6 @@ function ShowScore(){
     if (sessionStorage.getItem("rounds")) {
         rounds = JSON.parse(sessionStorage.getItem("rounds"));
     } 
-    console.log("test");
     scoreCarousel();
 }
 
@@ -512,12 +534,15 @@ async function scoreCarousel(){
 }
 
 async function ResetGame(){
+    currentGuess = [0,0];
     hasGuessed = false;
     hasSubmitted = false;
 
     document.getElementById("submitButton").classList.remove("buttonSelected");
     document.getElementById("continueButton").classList.remove("buttonSelected");
     
+    document.getElementById("timer").style.width = "0vw";
+
     document.getElementById("mapImg").style.display = "flex";
     document.getElementById("levelImg").style.opacity = "100%";
     if(sessionSettings.modifiers.screen50){
@@ -939,7 +964,7 @@ const SplitLevels = [
     [75, 4,  true,   [40.7,57.2] , "split"],
     [76, 7,  true,   [40.9,56.1] , "split"],
     [77, 5,  true,   [38.4,56.5] , "split"],
-    [79, 5,  true,   [39.8,50.6] , "split"],
+    [78, 5,  true,   [39.8,50.6] , "split"],
     [79, 5,  true,   [35.3,56.5] , "split"],
     [80, 7,  true,   [36.6,56.4] , "split"],
     [81, 9,  true,   [33.6,45.7] , "split"],

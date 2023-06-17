@@ -512,21 +512,6 @@ p{
     opacity: 0%;
 }
 
-#overlay{
-    opacity: 100%;
-    position: fixed;
-    margin-top: -100vh;
-    z-index: 1000;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--secondColor);
-    pointer-events: none;
-}
-
-.overlayOff{
-    transition: ease-out 1000ms;
-    opacity: 0% !important;
-}
 
 .selectedImage{
     opacity: 0%;
