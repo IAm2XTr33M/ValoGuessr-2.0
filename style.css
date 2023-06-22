@@ -12,22 +12,31 @@
 }
 
 :root{
+    --thirdColor:rgb(20, 6, 6); 
+    --secondColor:rgb(255, 255, 255);
+    --mainColor:rgb(255, 255, 255);
+    --mainColorTransparent:rgba(255, 0, 0, 0.281); 
+    --hueShift:0deg;
+    --brightness:100%;
+}
+#riotText{
+    color: var(--secondColor);
+}
+/* 
     --thirdColor:rgb(255, 255, 255); 
     --secondColor:rgb(0, 0, 0);
     --mainColor:red;
     --mainColorTransparent:rgba(255, 0, 0, 0.131); 
     --hueShift:0deg;
     --brightness:100%;
-}
-
-/* 
---thirdColor:rgb(255, 255, 255); 
---secondColor:rgb(0, 0, 0);
---mainColor:red;
---mainColorTransparent:rgba(255, 0, 0, 0.131); 
---hueShift:0deg;
---brightness:100%;
  */
+
+ /* --thirdColor:rgb(26, 9, 31); 
+ --secondColor:rgb(255, 255, 255);
+ --mainColor:rgb(255, 255, 255);
+ --mainColorTransparent:rgba(162, 0, 255, 0.486); 
+ --hueShift:-75deg;
+ --brightness:80%; */
 
 body{
     background-color: var(--thirdColor);
@@ -325,7 +334,8 @@ p{
     text-shadow: 4px 4px 0px var(--secondColor);
 }
 .gameLeft .buttonSelected:hover h3{
-    color: var(--mainColor);
+    color: var(--mainColor) !important;
+    text-shadow: 4px 4px 0px var(--mainColorTransparent) !important;
 }
 .gameLeft .buttonSelected:active h3{
     color: var(--thirdColor);
@@ -508,10 +518,11 @@ p{
     opacity: 100%;
     transition: ease-out 100ms;
 }
-#AnswerImg{
-    opacity: 0%;
-}
 
+button:disabled{
+    opacity: 10%;
+    pointer-events: none;
+}
 
 .selectedImage{
     opacity: 0%;
@@ -582,4 +593,67 @@ p{
     display: flex !important;
     flex-direction: row !important;
     height: 7.5vw !important;
+}
+
+#pointText{
+    width: 75%;
+    font-size: 3.5vw;
+    padding-bottom: 2vw;
+    padding-top: 2vw;
+}
+
+#ThemeChanger{
+    width: 4vw;
+    height: 6vw;
+    position: absolute;
+    z-index: 500;
+    margin-left: -90vw;
+    border: none;
+    background-color: var(--mainColor);
+    box-shadow: 0px 0px 20px -5px var(--secondColor);
+}
+#ThemeChanger img{
+    width: 125%;
+    margin-left: -7.5%;
+    rotate: 180deg;
+}
+#ThemeChanger:hover{
+    cursor: pointer;
+    background-color: var(--thirdColor);
+    transition: 200ms;
+}
+#ThemeChanger:active{
+    background-color: var(--secondColor);
+    transition: 0ms !important;
+}
+#ThemeChanger:hover img{
+    width: 140%;
+    margin-left: -15%;
+    transition: 200ms;
+}
+
+#overlay{
+    width: 100vw;
+    height: 200vh;
+    position: absolute;
+    background-color: black;
+    z-index: 600;
+    pointer-events: none;
+    margin-top: -100vh;
+}
+.overlayGone{
+    transition:500ms opacity;
+    transition-delay: 250ms;
+    opacity: 0;
+}
+
+#ThemeChanger2{
+    width: 4vw;
+    height: 6vw;
+    position: absolute;
+    z-index: 500;
+    margin-left: -80vw;
+    border: none;
+    background-color: var(--mainColor);
+    box-shadow: 0px 0px 20px -5px var(--secondColor);
 }

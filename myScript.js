@@ -127,7 +127,7 @@ function TimeLimitSliderLoad(){
     function changeValue(value){
         sessionSettings.currentTimeLimit = value;
         if(value < 10){
-            if(value == 0){
+            if(value == 2){
                 timeLimitSliderText.innerHTML = "&nbsp;&nbsp;" + "No Limit" + "&nbsp;";
             }
             else{
@@ -333,6 +333,7 @@ function GetFinalRounds(usableLevels){
 
     document.getElementById('mapImg').src= MapDir; 
 
+    document.getElementById('levelImg').src = "game/maps/"+finalRounds[CR][4]+"/" + finalRounds[CR][0] + ".png";
     startRound();
 }
 
@@ -355,11 +356,14 @@ async function startRound(){
     var text = "Round " + (CR+1).toString() + "/" + finalRounds.length;
     document.getElementById("currentRoundText").innerHTML = text;
 
-    var Imgdir = "game/maps/"+RoundMap+"/" + RoundImg + ".png";
     var Ansdir = "game/maps/"+RoundMap+"/locations/" + RoundImg + ".png";
+    var Imgdir = "game/maps/"+RoundMap+"/" + RoundImg + ".png";
 
     if(!sessionSettings.modifiers.guessMap){
         var MapDir = "game/maps/"+RoundMap+"/map.png";
+    }
+    else if(CR == 0){
+        var MapDir = "game/maps/NoMap/map.png";
     }
 
     document.getElementById('AnswerImg').src= Ansdir; 
@@ -367,7 +371,7 @@ async function startRound(){
     document.getElementById('mapImg').src= MapDir; 
 
     await document.getElementById("levelImg").complete;
-    if(sessionSettings.currentTimeLimit > 0){
+    if(sessionSettings.currentTimeLimit > 2){
         var fps = 60;
         for(var i = 0; i < sessionSettings.currentTimeLimit*fps; i++){
             var total = i / sessionSettings.currentTimeLimit *100/fps;
@@ -406,13 +410,14 @@ function clickHotspotImage(event) {
         var selectImgEl = document.getElementById("selectImg").style;
         selectImgEl.left = "calc(" + currentGuess[0].toString()+"% - 4px)";
         selectImgEl.top = "calc(" + currentGuess[1].toString()+"% - 4px)";
-        selectImgEl.opacity = "100";
+        selectImgEl.display = "block";
     
         document.getElementById("submitButton").classList.add("buttonSelected");
     
         hasGuessed = true;
     }
 }
+
 
 function TimeOver(){
     hasSubmitted = true;
@@ -483,6 +488,9 @@ function SubmitGuess(){
         }
         currentPoints += Math.round(pointsGained);
 
+        if(CR < sessionSettings.currentRoundAmmount){
+            document.getElementById('levelImg').src ="game/maps/"+finalRounds[CR+1][4]+"/" + finalRounds[CR+1][0] + ".png";
+        }
         document.getElementById("pointsText").innerHTML = "Points: "+getNumberWithCommas(currentPoints);
     }
 }
@@ -553,7 +561,7 @@ async function ResetGame(){
     document.getElementById("gameText").innerHTML = "Guess as close as possible!";
 
     var selectImgEl = document.getElementById("selectImg").style;
-    selectImgEl.opacity = "0%";
+    selectImgEl.display = "none";
 }
 
 function getNumberWithCommas(number) {
@@ -568,7 +576,7 @@ function debug(){
     console.log(sessionSettings);
 }
 
-const BindLevels = [
+const LevelTemplate = [
     [1 , 5,  true,   [] , ""],
     [2 , 5,  true,   [] , ""],
     [3 , 5,  true,   [] , ""],
@@ -632,136 +640,13 @@ const BindLevels = [
     [61, 5,  true,   [] , ""],
     [62, 5,  true,   [] , ""],
     [63, 5,  true,   [] , ""],
+];
+
+const BindLevels = [
 ];
 const LotusLevels = [
-    [1 , 5,  true,   [] , ""],
-    [2 , 5,  true,   [] , ""],
-    [3 , 5,  true,   [] , ""],
-    [4 , 5,  true,   [] , ""],
-    [5 , 5,  true,   [] , ""],
-    [6 , 5,  true,   [] , ""],
-    [7 , 5,  true,   [] , ""],
-    [8 , 5,  true,   [] , ""],
-    [9 , 5,  true,   [] , ""],
-    [10, 5,  true,   [] , ""],
-    [11, 5,  true,   [] , ""],
-    [12, 5,  true,   [] , ""],
-    [13, 5,  true,   [] , ""],
-    [14, 5,  true,   [] , ""],
-    [15, 5,  true,   [] , ""],
-    [16, 5,  true,   [] , ""],
-    [17, 5,  true,   [] , ""],
-    [18, 5,  true,   [] , ""],
-    [19, 5,  true,   [] , ""],
-    [20, 5,  true,   [] , ""],
-    [21, 5,  true,   [] , ""],
-    [22, 5,  true,   [] , ""],
-    [23, 5,  true,   [] , ""],
-    [24, 5,  true,   [] , ""],
-    [25, 5,  true,   [] , ""],
-    [26, 5,  true,   [] , ""],
-    [27, 5,  true,   [] , ""],
-    [28, 5,  true,   [] , ""],
-    [29, 5,  true,   [] , ""],
-    [30, 5,  true,   [] , ""],
-    [31, 5,  true,   [] , ""],
-    [32, 5,  true,   [] , ""],
-    [33, 5,  true,   [] , ""],
-    [34, 5,  true,   [] , ""],
-    [35, 5,  true,   [] , ""],
-    [36, 5,  true,   [] , ""],
-    [37, 5,  true,   [] , ""],
-    [38, 5,  true,   [] , ""],
-    [39, 5,  true,   [] , ""],
-    [40, 5,  true,   [] , ""],
-    [41, 5,  true,   [] , ""],
-    [42, 5,  true,   [] , ""],
-    [43, 5,  true,   [] , ""],
-    [44, 5,  true,   [] , ""],
-    [45, 5,  true,   [] , ""],
-    [46, 5,  true,   [] , ""],
-    [47, 5,  true,   [] , ""],
-    [48, 5,  true,   [] , ""],
-    [49, 5,  true,   [] , ""],
-    [50, 5,  true,   [] , ""],
-    [51, 5,  true,   [] , ""],
-    [52, 5,  true,   [] , ""],
-    [53, 5,  true,   [] , ""],
-    [54, 5,  true,   [] , ""],
-    [55, 5,  true,   [] , ""],
-    [56, 5,  true,   [] , ""],
-    [57, 5,  true,   [] , ""],
-    [58, 5,  true,   [] , ""],
-    [59, 5,  true,   [] , ""],
-    [60, 5,  true,   [] , ""],
-    [61, 5,  true,   [] , ""],
-    [62, 5,  true,   [] , ""],
-    [63, 5,  true,   [] , ""],
 ];
 const BreezeLevels = [
-    [1 , 5,  true,   [] , ""],
-    [2 , 5,  true,   [] , ""],
-    [3 , 5,  true,   [] , ""],
-    [4 , 5,  true,   [] , ""],
-    [5 , 5,  true,   [] , ""],
-    [6 , 5,  true,   [] , ""],
-    [7 , 5,  true,   [] , ""],
-    [8 , 5,  true,   [] , ""],
-    [9 , 5,  true,   [] , ""],
-    [10, 5,  true,   [] , ""],
-    [11, 5,  true,   [] , ""],
-    [12, 5,  true,   [] , ""],
-    [13, 5,  true,   [] , ""],
-    [14, 5,  true,   [] , ""],
-    [15, 5,  true,   [] , ""],
-    [16, 5,  true,   [] , ""],
-    [17, 5,  true,   [] , ""],
-    [18, 5,  true,   [] , ""],
-    [19, 5,  true,   [] , ""],
-    [20, 5,  true,   [] , ""],
-    [21, 5,  true,   [] , ""],
-    [22, 5,  true,   [] , ""],
-    [23, 5,  true,   [] , ""],
-    [24, 5,  true,   [] , ""],
-    [25, 5,  true,   [] , ""],
-    [26, 5,  true,   [] , ""],
-    [27, 5,  true,   [] , ""],
-    [28, 5,  true,   [] , ""],
-    [29, 5,  true,   [] , ""],
-    [30, 5,  true,   [] , ""],
-    [31, 5,  true,   [] , ""],
-    [32, 5,  true,   [] , ""],
-    [33, 5,  true,   [] , ""],
-    [34, 5,  true,   [] , ""],
-    [35, 5,  true,   [] , ""],
-    [36, 5,  true,   [] , ""],
-    [37, 5,  true,   [] , ""],
-    [38, 5,  true,   [] , ""],
-    [39, 5,  true,   [] , ""],
-    [40, 5,  true,   [] , ""],
-    [41, 5,  true,   [] , ""],
-    [42, 5,  true,   [] , ""],
-    [43, 5,  true,   [] , ""],
-    [44, 5,  true,   [] , ""],
-    [45, 5,  true,   [] , ""],
-    [46, 5,  true,   [] , ""],
-    [47, 5,  true,   [] , ""],
-    [48, 5,  true,   [] , ""],
-    [49, 5,  true,   [] , ""],
-    [50, 5,  true,   [] , ""],
-    [51, 5,  true,   [] , ""],
-    [52, 5,  true,   [] , ""],
-    [53, 5,  true,   [] , ""],
-    [54, 5,  true,   [] , ""],
-    [55, 5,  true,   [] , ""],
-    [56, 5,  true,   [] , ""],
-    [57, 5,  true,   [] , ""],
-    [58, 5,  true,   [] , ""],
-    [59, 5,  true,   [] , ""],
-    [60, 5,  true,   [] , ""],
-    [61, 5,  true,   [] , ""],
-    [62, 5,  true,   [] , ""],
-    [63, 5,  true,   [] , ""],
 ];
 const HavenLevels = [
     [1 , 5,  true,   [39.5,53.3] , "haven"],

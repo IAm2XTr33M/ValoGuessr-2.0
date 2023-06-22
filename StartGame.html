@@ -27,7 +27,7 @@
             <button id="map6" class="startGameSmallButton" onclick="chooseMap(6);"><h4>Fracture</h4></button>
             <button id="map7" class="startGameSmallButton" onclick="chooseMap(7);"><h4>Ascent</h4></button>
             <button id="map8" disabled class="startGameSmallButton" onclick="chooseMap(8);"><h4>Lotus</h4></button>
-            <button id="map8" class="startGameSmallButton" onclick="chooseMap(9);"><h4>Toggle all</h4></button>
+            <button id="map8" disabled class="startGameSmallButton" onclick="chooseMap(9);"><h4>Toggle all</h4></button>
         </div>
 
         <h3 style="margin-top:1vw;">Round amount</h3>
@@ -38,7 +38,7 @@
 
         <h3>Time Limit</h3>
         <div class="horizontal" style="margin-left: 10vw;">
-            <input type="range" min="0" max="60" value="0" class="slider" id="timeLimitSlider">
+            <input type="range" min="2" max="60" value="0" class="slider" id="timeLimitSlider">
             <h3 id="timeLimitSliderText"></h3>
         </div>
 
@@ -65,6 +65,10 @@
         <button id="startButton" onclick="StartGameButton();">
             <h2>Start Game</h2>
         </button>
+        <button id="ThemeChanger" onclick="changeTheme()">
+            <img src="img/ThemeButton.png" alt="">
+        </button>
+        <div id="overlay"></div>
     </div>
 </body>
 </html>

@@ -42,21 +42,27 @@
                 </div>
             </div>
             <div class="mapSelect" id="mapSelect">
-                <button id="mapbut0" onclick="SelectMap(0)">Bind</button>
-                <button id="mapbut1" onclick="SelectMap(1)">Breeze</button>
+                <button id="mapbut0" disabled onclick="SelectMap(0)">Bind</button>
+                <button id="mapbut1" disabled onclick="SelectMap(1)">Breeze</button>
                 <button id="mapbut2" onclick="SelectMap(2)">Haven</button>
                 <button id="mapbut3" onclick="SelectMap(3)">IceBox</button>
                 <button id="mapbut4" onclick="SelectMap(4)">Split</button>
                 <button id="mapbut5" onclick="SelectMap(5)">Pearl</button>
                 <button id="mapbut6" onclick="SelectMap(6)">Fracture</button>
                 <button id="mapbut7" onclick="SelectMap(7)">Ascent</button>
-                <button id="mapbut8" onclick="SelectMap(8)">Lotus</button>
+                <button id="mapbut8" disabled onclick="SelectMap(8)">Lotus</button>
             </div>
         </div>
+        <button id="ThemeChanger" onclick="changeTheme()">
+            <img src="img/ThemeButton.png" alt="">
+        </button>
     </div>
 
     <div class="timer" id="timer" style="width: 0vw;">
 
     </div>
+
+    <div id="overlay"></div>
+
 </body>
 </html>
