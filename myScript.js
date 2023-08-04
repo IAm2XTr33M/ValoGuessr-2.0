@@ -2,6 +2,12 @@ var devMode = false;
 
 
 window.onload = function() {
+
+    getTheme();
+    setTheme();
+
+    document.getElementById("overlay").classList.add("overlayGone");
+
     if ( document.URL.includes("StartGame.html") ) {
         GameSettings();
     }
@@ -11,6 +17,90 @@ window.onload = function() {
     if(document.URL.includes("Score.html")){
         ShowScore();
     }
+}
+
+var currentTheme = 0;
+var ThemeAmmount = 4;
+function getTheme(){
+    currentTheme = Number(getCookie('ThemeCookie'));
+}
+
+function setTheme(){
+    var root = document.querySelector(':root');
+    switch(currentTheme){
+        case 0: 
+            root.style.setProperty('--thirdColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--secondColor', 'rgb(0, 0, 0)');
+            root.style.setProperty('--mainColor', 'rgb(255, 0, 55)');
+            root.style.setProperty('--mainColorTransparent', 'rgba(255, 0, 0, 0.131)');
+            root.style.setProperty('--hueShift', '0deg');
+            root.style.setProperty('--brightness', '100%');
+        break;
+        case 1: 
+            root.style.setProperty('--thirdColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--secondColor', 'rgb(0, 0, 0)');
+            root.style.setProperty('--mainColor', 'rgb(25, 0, 255)');
+            root.style.setProperty('--mainColorTransparent', 'rgba(25, 0, 255, 0.131)');
+            root.style.setProperty('--hueShift', '270deg');
+            root.style.setProperty('--brightness', '90%');
+        break;
+        case 2: 
+            root.style.setProperty('--thirdColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--secondColor', 'rgb(0, 0, 0)');
+            root.style.setProperty('--mainColor', 'rgb(255, 96, 202)');
+            root.style.setProperty('--mainColorTransparent', 'rgba(255, 96, 202, 0.131)');
+            root.style.setProperty('--hueShift', '-20deg');
+            root.style.setProperty('--brightness', '300%');
+        break;
+        case 3: 
+            root.style.setProperty('--thirdColor', 'rgb(26, 9, 31)');
+            root.style.setProperty('--secondColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--mainColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--mainColorTransparent', 'rgba(162, 0, 255, 0.281)');
+            root.style.setProperty('--hueShift', '-68deg');
+            root.style.setProperty('--brightness', '75%');
+        break;
+        case 4: 
+            root.style.setProperty('--thirdColor', 'rgb(20, 6, 6)');
+            root.style.setProperty('--secondColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--mainColor', 'rgb(255, 255, 255)');
+            root.style.setProperty('--mainColorTransparent', 'rgba(255, 0, 0, 0.281)');
+            root.style.setProperty('--hueShift', '0deg');
+            root.style.setProperty('--brightness', '100%');
+        break;
+    }
+}
+
+function changeTheme(){
+    if(currentTheme < ThemeAmmount){
+        currentTheme++;
+    }
+    else{
+        currentTheme = 0;
+    }
+    setCookie('ThemeCookie',currentTheme);
+    setTheme();
+    console.log(currentTheme);
+}
+
+function getCookie(cname) {
+var name = cname + '=';
+var decodedCookie = decodeURIComponent(document.cookie);
+var ca = decodedCookie.split(';');
+for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+    c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+    return c.substring(name.length, c.length);
+    }
+}
+return '';
+}
+  
+function setCookie(cname, value) {
+    document.cookie = cname + '=' + value + ';' + ';path=/';
 }
 
 function info(info){
@@ -181,19 +271,20 @@ function SelectMap(map){
     }
     
     switch(map){
-        case 0 : CurrentSelectedMap = "Bind"; break;
-        case 1 : CurrentSelectedMap = "Breeze"; break;
-        case 2 : CurrentSelectedMap = "Haven"; break;
-        case 3 : CurrentSelectedMap = "IceBox"; break;
-        case 4 : CurrentSelectedMap = "Split"; break;
-        case 5 : CurrentSelectedMap = "Pearl"; break;
-        case 6 : CurrentSelectedMap = "Fracture"; break;
-        case 7 : CurrentSelectedMap = "Ascent"; break;
-        case 8 : CurrentSelectedMap = "Lotus"; break;
+        case 0 : CurrentSelectedMap = "bind"; break;
+        case 1 : CurrentSelectedMap = "breeze"; break;
+        case 2 : CurrentSelectedMap = "haven"; break;
+        case 3 : CurrentSelectedMap = "icebox"; break;
+        case 4 : CurrentSelectedMap = "split"; break;
+        case 5 : CurrentSelectedMap = "pearl"; break;
+        case 6 : CurrentSelectedMap = "fracture"; break;
+        case 7 : CurrentSelectedMap = "ascent"; break;
+        case 8 : CurrentSelectedMap = "lotus"; break;
     }
+    var mapDir = "/game/maps/"+CurrentSelectedMap.toLowerCase()+"/map.png";
 
     document.getElementById("mapbut"+map.toString()).classList.add("selectedMap");
-    document.getElementById("mapImg").src = "game/maps/"+CurrentSelectedMap+"/map.png";
+    document.getElementById('mapImg').src= mapDir; 
 }
 
 function StartGameButton(){
@@ -359,11 +450,16 @@ async function startRound(){
     var Ansdir = "game/maps/"+RoundMap+"/locations/" + RoundImg + ".png";
     var Imgdir = "game/maps/"+RoundMap+"/" + RoundImg + ".png";
 
-    if(!sessionSettings.modifiers.guessMap){
-        var MapDir = "game/maps/"+RoundMap+"/map.png";
+    if(sessionSettings.modifiers.guessMap){
+        if(CurrentSelectedMap != null){
+            var MapDir = "game/maps/"+CurrentSelectedMap+"/map.png";
+        }
+        else{
+            var MapDir = "game/maps/NoMap/map.png";
+        }
     }
-    else if(CR == 0){
-        var MapDir = "game/maps/NoMap/map.png";
+    else{
+        var MapDir = "game/maps/"+RoundMap+"/map.png";
     }
 
     document.getElementById('AnswerImg').src= Ansdir; 
@@ -398,23 +494,29 @@ var imgWidth;
 var imgHeight;
 
 function clickHotspotImage(event) {
-    if(!hasSubmitted){
+
+    if(!devMode){
+        if(!hasSubmitted){
+            var xCoordinate = event.offsetX;
+            var yCoordinate = event.offsetY;
+        
+            imgWidth = document.getElementById("levelImg").clientWidth;;
+            imgHeight = document.getElementById("levelImg").clientHeight;
+        
+            currentGuess = [xCoordinate/imgWidth*100,yCoordinate/imgHeight*100]
+            var selectImgEl = document.getElementById("selectImg").style;
+            selectImgEl.left = "calc(" + currentGuess[0].toString()+"% - 4px)";
+            selectImgEl.top = "calc(" + currentGuess[1].toString()+"% - 4px)";
+            selectImgEl.display = "block";
+        
+            document.getElementById("submitButton").classList.add("buttonSelected");
+        
+            hasGuessed = true;
+        }
+    }
+    else{
         var xCoordinate = event.offsetX;
         var yCoordinate = event.offsetY;
-    
-        imgWidth = document.getElementById("levelImg").clientWidth;;
-        imgHeight = document.getElementById("levelImg").clientHeight;
-    
-        currentGuess = [xCoordinate/imgWidth*100,yCoordinate/imgHeight*100]
-        console.log(currentGuess);
-        var selectImgEl = document.getElementById("selectImg").style;
-        selectImgEl.left = "calc(" + currentGuess[0].toString()+"% - 4px)";
-        selectImgEl.top = "calc(" + currentGuess[1].toString()+"% - 4px)";
-        selectImgEl.display = "block";
-    
-        document.getElementById("submitButton").classList.add("buttonSelected");
-    
-        hasGuessed = true;
     }
 }
 
@@ -519,10 +621,15 @@ function ShowScore(){
     if (sessionStorage.getItem("points")) {
         points = JSON.parse(sessionStorage.getItem("points"));
     }
-    document.getElementById("pointText").innerHTML = getNumberWithCommas(points) + " points!"
     if (sessionStorage.getItem("rounds")) {
         rounds = JSON.parse(sessionStorage.getItem("rounds"));
     } 
+    var total = getNumberWithCommas(points);
+    var max = getNumberWithCommas(5000 * rounds.length);
+    var percent = Math.round(points / (rounds.length * 5000) * 100);
+
+    var text = total+ "/" + max+ " points!" + " Thats "+percent+"%" ;
+    document.getElementById("pointText").innerHTML = text;
     scoreCarousel();
 }
 

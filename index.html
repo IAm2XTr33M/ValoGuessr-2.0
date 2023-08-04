@@ -7,6 +7,8 @@
     <title>ValoGuessr</title>
     <script src="myScript.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1210423815457124"
+     crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -16,7 +18,7 @@
             </a>
         </div>
 
-        <div class="homeContainer center">
+        <div class="homeContainer center" style="scale: 85%;">
             <div class="homeLeft">
 
                 <h1>Welcome to ValoGuessr</h1>
@@ -38,18 +40,17 @@
                     </button>
                 <!-- </a> -->
 
-                <div class="gap" style="--gap: 2vw"></div>
-                
                 <h3>-Please check out Valorant and GeoGuessr-</h3>
                 
                 <div class="horizontal" style="height: 15svh;">
-                    <button>
+                    
+                    <a target="_blank" href="https://playvalorant.com/en-gb/"><button>
                         <h2>valorant.com</h2>
-                    </button>
+                    </button></a>
 
-                    <button>
+                    <a target="_blank" href="https://www.geoguessr.com"><button>
                         <h2>geoguessr.com</h2>
-                    </button>
+                    </button></a>
                 </div>
             </div>
             <div class="homeRight">
@@ -64,10 +65,10 @@
                 <div class="gap" style="--gap: 1vw"></div>
 
                 <div class="horizontal socials center" style="gap:2vw;">
-                    <a href=""><img src="img/SocialTikTok.png" alt=""></a>
-                    <img src="img/SocialTwitter.png" alt="">
-                    <img src="img/SocialTwitch.png" alt="">
-                    <img src="img/SocialYoutube.png" alt="">
+                    <a target="_blank" href=""><img src="img/SocialTikTok.png" alt=""></a>
+                    <a target="_blank" href="https://twitter.com/ttvkynooi"><img src="img/SocialTwitter.png" alt=""></a>
+                    <a target="_blank" href="https://www.twitch.tv/kynooi"><img src="img/SocialTwitch.png" alt=""></a>
+                    <a target="_blank" href=""><img src="img/SocialYoutube.png" alt=""></a>
                 </div>
 
                 <h4>!!! This is a project I made for fun so there might be bugs !!!</h4>
@@ -84,7 +85,18 @@
         <button id="ThemeChanger" onclick="changeTheme()">
             <img src="img/ThemeButton.png" alt="">
         </button>
+
+        <div id="donateDiv">
+            Buy me a coffee ☕
+            <a href="https://www.buymeacoffee.com/Kynooi" target="_blank">
+                <button href="https://www.buymeacoffee.com/Kynooi" id="donateButton"><h2>Donate</h2></button>
+            </a>
+        </div>
+
+        <img src="img/FS_gVHmWIAAJQ65.jpg" class="tarik">
+
         <div id="overlay"></div>
+        </div>
     </div>
 </body>
 </html>

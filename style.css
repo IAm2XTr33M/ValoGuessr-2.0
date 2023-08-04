@@ -204,7 +204,7 @@ p{
     text-align: center;
     justify-content: center;
     align-items: center;
-    box-shadow:inset 0px 0px 120px 100px var(--thirdColor);
+    box-shadow:inset 0px 0px 100px 100px var(--thirdColor);
 }
 
 .homeRight img{
@@ -412,6 +412,15 @@ p{
     background: var(--mainColor);
     cursor: pointer;
   }
+
+.startgameMain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1vw;
+    scale: 98%;
+}
 #difficultyText{
     margin: 0.5vw;
 }
@@ -492,7 +501,7 @@ p{
     margin: 2vw;
     border-color: var(--thirdColor);
     border-radius: 15px;
-    height: 12vw;
+    height: 5vw;
     min-width: 20vw;
     background-color: var(--thirdColor);
     box-shadow:0px 0px 10px 0px var(--mainColor);
@@ -553,7 +562,7 @@ button:disabled{
 }
 
 #scoreImg{
-    width: 95%;
+    width: 80%;
     box-shadow: 0px 0px 100px -20px var(--mainColor);
 }
 
@@ -631,6 +640,16 @@ button:disabled{
     margin-left: -15%;
     transition: 200ms;
 }
+.tarik{
+    position: absolute;
+    width: 7vw;
+    height: 4vw;
+    z-index: 1000;
+    left: 8vw;
+    top: 0.5vw;
+    opacity: 20%;
+    filter: blur(1px) brightness(80%);
+}
 
 #overlay{
     width: 100vw;
@@ -647,13 +666,50 @@ button:disabled{
     opacity: 0;
 }
 
-#ThemeChanger2{
-    width: 4vw;
+#donateDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 15vw;
     height: 6vw;
     position: absolute;
     z-index: 500;
-    margin-left: -80vw;
+    margin-left: 80vw;
     border: none;
     background-color: var(--mainColor);
     box-shadow: 0px 0px 20px -5px var(--secondColor);
+
+    font-family: "Leela", sans-serif;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: var(--thirdColor);
+    text-shadow: 4px 4px 0px var(--mainColorTransparent);
+}
+
+#donateDiv a{
+    width: 80%;
+    height: 50%;
+}
+
+#donateButton{
+    height: 100%;
+    width: 100%;
+    margin-top: 2%;
+    color: var(--secondColor);
+    border-color: var(--mainColorTransparent);
+    border-radius: 2px;
+}
+
+#donateButton h2{
+    font-family: "Leela", sans-serif;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: black;
+    text-shadow: 4px 4px 0px var(--mainColorTransparent);
+}
+#donateButton:hover{
+    cursor: pointer;
+    transition-duration: 100ms;
+    scale: 110%;
 }
